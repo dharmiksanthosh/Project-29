@@ -5,7 +5,7 @@ class Chain {
 
             bodyA: bodyA,
             pointB: pointB,
-            stiffness: 1,
+            stiffness: 0.1,
             lenght: 100
         }
         this.pointB = pointB;
