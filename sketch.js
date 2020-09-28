@@ -4,15 +4,9 @@ const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
 
-var ground,child,tree,stone,stoneimg,state;
-var mangoes = ["1","2","3","4","5","6","7","8","9","10","11"];
-var ropes = ["1"];
-
-function preload(){
-	
-	child = loadImage("1boy.png");
-	tree = loadImage("1tree.png");
-}
+var ground,hexo,ground2,state;
+var box = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","21","22","23","24","20"];
+var ropes;
 
 function setup() {
 	createCanvas(1000, 500);
@@ -22,71 +16,114 @@ function setup() {
 
 	state = 1;
 
-	ground = new Ground(width/2,height-5,width,10);
-	stone = new Stone();
+	ground = new Ground(width/2,350,300,10);
+	ground2 = new Ground(830,250,200,10)
+	hexo = new Hex();
 
-	ropes[0] = new Chain(stone.body,{x:205, y:390});
+	ropes = new Chain(hexo.body,{x:100, y:300});
+
+  // Stack1 
+	// bottom
+	box[0] = new Box(390,320);
+    box[1] = new Box(425,320);
+	box[2] = new Box(460,320);
+	box[3] = new Box(495,320);
+	box[4] = new Box(530,320);
+    box[5] = new Box(565,320);
+	box[6] = new Box(600,320);
+
+	// level2
+	box[7] = new Box(425,270);
+	box[8] = new Box(460,270);
+	box[9] = new Box(495,270);
+	box[10] = new Box(530,270);
+	box[11] = new Box(565,270);
+
+	// level3
+	box[12] = new Box(460,220);
+	box[13] = new Box(495,220);
+	box[14] = new Box(530,220);
+
+	// top
+	box[15] = new Box(495,170);
 
 
-	mangoes[0] = new Mango(680,69,40);
-    mangoes[1] = new Mango(785,100,40);
-	mangoes[2] = new Mango(800,40,50);
-	mangoes[3] = new Mango(585,140,50);
-	mangoes[4] = new Mango(590,200,50);
-    mangoes[5] = new Mango(700,115,40);
-	mangoes[6] = new Mango(675,200,40);
-	mangoes[7] = new Mango(795,200,50);
-	mangoes[8] = new Mango(900,175,50);
-	mangoes[9] = new Mango(870,120,40);
-	mangoes[10] = new Mango(850,130,50);
-	mangoes[11] = new Mango(735,150,50);
+  //Stack 2
+	// bottom
+	box[16] = new Box(760,220);
+ 	box[17] = new Box(795,220);
+	box[18] = new Box(830,220);
+	box[19] = new Box(865,220);
+	box[20] = new Box(900,220);
+
+	// level2
+	box[21] = new Box(795,170);
+	box[22] = new Box(830,170);
+	box[23] = new Box(865,170);
+
+	// top
+	box[24] = new Box(830,120);
 
 	Engine.run(engine);
 }
 
 
 function draw() {
-  background(150);
+  background(rgb(56,44,44));
 
   imageMode(CENTER);
-  image(child,250,437.5,150,200);
-  image(tree,750,250,450,500);
-
 
   ground.display();
-  ropes[0].display();
-  stone.display();
+  ground2.display();
+  ropes.display();
+  hexo.display();
 
-  mangoes[0].display();
-  mangoes[2].display();
-  mangoes[1].display();
-  mangoes[3].display();
-  mangoes[4].display();
-  mangoes[5].display();
-  mangoes[6].display();
-  mangoes[7].display();
-  mangoes[8].display();
-  mangoes[9].display();
-  mangoes[10].display();
-  mangoes[11].display();
+  // Stack1
 
-isTouching(stone,0);
-isTouching(stone,1);
-isTouching(stone,2);
-isTouching(stone,3);
-isTouching(stone,4);
-isTouching(stone,5);
-isTouching(stone,6);
-isTouching(stone,7);
-isTouching(stone,8);
-isTouching(stone,9);
-isTouching(stone,10);
-isTouching(stone,11);
+  // bottom
+  box[0].display(rgb(134,205,233));
+  box[2].display(rgb(134,205,233));
+  box[1].display(rgb(134,205,233));
+  box[3].display(rgb(134,205,233));
+  box[4].display(rgb(134,205,233));
+  box[5].display(rgb(134,205,233));
+  box[6].display(rgb(134,205,233));
+
+  // level2
+  box[7].display(rgb(254,191,202));
+  box[8].display(rgb(254,191,202));
+  box[9].display(rgb(254,191,202));
+  box[10].display(rgb(254,191,202));
+  box[11].display(rgb(254,191,202));
+
+  // level3
+  box[12].display(rgb(62,223,207));
+  box[13].display(rgb(62,223,207));
+  box[14].display(rgb(62,223,207));
+
+ // top
+  box[15].display(127);
+
+//Stack2
+ // bottom
+ box[16].display(rgb(134,205,233));
+ box[17].display(rgb(134,205,233));
+ box[18].display(rgb(134,205,233));
+ box[19].display(rgb(134,205,233));
+ box[20].display(rgb(134,205,233));
+
+ // level2
+ box[21].display(rgb(254,191,202));
+ box[22].display(rgb(254,191,202));
+ box[23].display(rgb(254,191,202));
+
+ // top
+ box[24].display(rgb(62,223,207));
 
 if (state===2&&keyDown("space")){
 
-	Matter.Body.setPosition(stone.body, {x:205,y:390})
-	ropes[0] = new Chain(stone.body,{x:205, y:390});
+	Matter.Body.setPosition(hexo.body, {x:100,y:300})
+	ropes = new Chain(hexo.body,{x:100, y:300});
 	state = 1
 }
 textSize(20);
@@ -94,10 +131,10 @@ text("Press Space To Get One More Chance",50,50);
 }
 function mouseDragged(){
 
-    Matter.Body.setPosition(stone.body,{x:mouseX,y:mouseY});
+    Matter.Body.setPosition(hexo.body,{x:mouseX,y:mouseY});
 }
 function mouseReleased(){
 
-    ropes[0].fly();
+    ropes.fly();
 	state = 2;
 }
